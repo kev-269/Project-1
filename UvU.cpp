@@ -20,24 +20,24 @@ void Game::distribute_tokens(){
         a--;
     }
 }
-void set_turn(Player p1,Player p2){
+void Game::set_turn(Player p1,Player p2){
     if (current_player == &p1)current_player = &p2;
     else if (current_player == &p2)current_player = &p1;
     else current_player =&p1;
 
 }
-void player_removes_from_pile(char A,int B){
+void Game::player_removes_from_pile(char A,int B){
     token_in_piles[A-65] -= B;
     Tokens -=B;
 }
-void check_game_status(){
+void Game::check_game_status(){
     if (Tokens==0){
         cout << currentPlayer->getName() << " wins the game!\n";
         exit(0);
     }
 }
 
-void play_game() {
+void Game::play_game() {
 
     cout << "Current state: ";
     for (int i = 0; i < Piles; ++i) {

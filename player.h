@@ -1,6 +1,5 @@
 #include <string>
-#ifndef
-#define
+using namespace std;
 
 
 class Player{
@@ -11,4 +10,3 @@ class Player{
         void set_name(string A);
 };
 
-#endif

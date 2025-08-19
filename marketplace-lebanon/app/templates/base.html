@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Lebanese Student Marketplace{% endblock %}</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+<header class="container">
+    <div class="nav">
+        <a class="brand" href="/">Student Market LB</a>
+        <nav>
+            {% if user %}
+            <a href="/new-listing">New listing</a>
+            <a href="/my/listings">My listings</a>
+            <a href="/messages">Messages</a>
+            <form action="/logout" method="post" style="display:inline">
+                <button class="link" type="submit">Logout</button>
+            </form>
+            {% else %}
+            <a href="/login">Login</a>
+            <a href="/signup">Sign up</a>
+            {% endif %}
+        </nav>
+    </div>
+</header>
+<main class="container">
+    {% block content %}{% endblock %}
+</main>
+<footer class="container muted">
+    Made for students in Lebanon — LBP/USD supported.
+</footer>
+</body>
+</html>

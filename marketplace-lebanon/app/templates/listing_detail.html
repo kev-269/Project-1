@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}{{ listing.title }}{% endblock %}
+{% block content %}
+<article class="detail">
+    <div class="gallery">
+        <img src="{{ listing.image_path or '/static/placeholder.png' }}" alt="image" />
+    </div>
+    <div class="info">
+        <h1>{{ listing.title }}</h1>
+        <div class="muted">{{ listing.university }} · {{ listing.category.value }} · {{ listing.condition.value }}</div>
+        <div class="price">{{ '%.0f'|format(listing.price) if listing.currency.value=='LBP' else '%.2f'|format(listing.price) }} {{ listing.currency.value }}</div>
+        <p>{{ listing.description }}</p>
+        {% if user and user.id != listing.seller_id %}
+        <form method="post" action="/listing/{{ listing.id }}/message">
+            <textarea name="content" placeholder="Message the seller" required></textarea>
+            <button type="submit">Send</button>
+        </form>
+        {% elif not user %}
+        <p class="muted"><a href="/login">Login</a> to contact the seller.</p>
+        {% endif %}
+    </div>
+</article>
+{% endblock %}

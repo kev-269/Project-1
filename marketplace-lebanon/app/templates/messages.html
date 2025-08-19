@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Messages{% endblock %}
+{% block content %}
+<h1>Inbox</h1>
+<ul class="messages">
+    {% for m in messages %}
+    <li>
+        <div class="muted">On <a href="/listing/{{ m.listing_id }}">listing #{{ m.listing_id }}</a> from user #{{ m.sender_id }} at {{ m.created_at.strftime('%Y-%m-%d %H:%M') }}</div>
+        <div>{{ m.content }}</div>
+    </li>
+    {% else %}
+    <li class="muted">No messages.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

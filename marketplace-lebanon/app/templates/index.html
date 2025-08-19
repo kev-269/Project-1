@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Home · Lebanese Student Marketplace{% endblock %}
+{% block content %}
+<h1>Browse listings</h1>
+<form class="filters" method="get">
+    <input type="text" name="q" placeholder="Search..." value="{{ filters.q }}" />
+    <select name="university">
+        <option value="">All universities</option>
+        {% for u in universities %}
+        <option value="{{ u }}" {% if filters.university==u %}selected{% endif %}>{{ u }}</option>
+        {% endfor %}
+    </select>
+    <select name="category">
+        <option value="">All categories</option>
+        {% for c in categories %}
+        <option value="{{ c.value }}" {% if filters.category==c.value %}selected{% endif %}>{{ c.value }}</option>
+        {% endfor %}
+    </select>
+    <select name="currency">
+        <option value="">Any currency</option>
+        {% for c in currencies %}
+        <option value="{{ c.value }}" {% if filters.currency==c.value %}selected{% endif %}>{{ c.value }}</option>
+        {% endfor %}
+    </select>
+    <input type="number" step="0.01" name="min_price" placeholder="Min" value="{{ filters.min_price }}" />
+    <input type="number" step="0.01" name="max_price" placeholder="Max" value="{{ filters.max_price }}" />
+    <button type="submit">Filter</button>
+</form>
+
+<div class="grid">
+    {% for item in listings %}
+    <a class="card" href="/listing/{{ item.id }}">
+        <div class="thumb" style="background-image:url('{{ item.image_path or '/static/placeholder.png' }}')"></div>
+        <div class="card-body">
+            <div class="title">{{ item.title }}</div>
+            <div class="muted">{{ item.university }} · {{ item.category.value }} · {{ item.condition.value }}</div>
+            <div class="price">{{ '%.0f'|format(item.price) if item.currency.value=='LBP' else '%.2f'|format(item.price) }} {{ item.currency.value }}</div>
+        </div>
+    </a>
+    {% else %}
+    <p>No listings yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

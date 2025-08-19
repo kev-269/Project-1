@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}My listings{% endblock %}
+{% block content %}
+<h1>My listings</h1>
+<div class="grid">
+    {% for item in listings %}
+    <a class="card" href="/listing/{{ item.id }}">
+        <div class="thumb" style="background-image:url('{{ item.image_path or '/static/placeholder.png' }}')"></div>
+        <div class="card-body">
+            <div class="title">{{ item.title }}</div>
+            <div class="price">{{ item.price }} {{ item.currency.value }}</div>
+        </div>
+    </a>
+    {% else %}
+    <p>You have no listings yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}
